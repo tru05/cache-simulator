@@ -3,6 +3,13 @@
 
 #include <vector>
 
+
+enum ReplacementPolicy {
+    LRU,
+    FIFO,
+    RANDOM
+};
+
 struct CacheLine {
     unsigned int tag;
     bool valid;
@@ -32,10 +39,13 @@ private:
     double hit_time;
     double miss_penalty;
 
+    ReplacementPolicy policy;
+
 public:
     Cache(int c_size, int b_size, int assoc,
           double h_time = 1.0,
-          double m_penalty = 50.0);
+          double m_penalty = 50.0,
+          ReplacementPolicy rp = LRU);
 
     void access(unsigned int address, bool is_write);
 
